@@ -56,7 +56,8 @@ export default function DashboardPage() {
 
         const counts: Record<string, number> = {};
         allDosen.forEach((p: Pegawai) => {
-          counts[p.jabatan_fungsional] = (counts[p.jabatan_fungsional] || 0) + 1;
+          const jabatan = p.jabatan_fungsional || "Belum diisi";
+          counts[jabatan] = (counts[jabatan] || 0) + 1;
         });
 
         setStats({

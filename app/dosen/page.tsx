@@ -84,8 +84,9 @@ export default function DosenPage() {
         !q ||
         d.nama_lengkap.toLowerCase().includes(q) ||
         d.nip.includes(q) ||
-        d.unit_kerja.toLowerCase().includes(q);
-      const matchJabatan = !filterJabatan || d.jabatan_fungsional === filterJabatan;
+        (d.unit_kerja || "").toLowerCase().includes(q);
+      const matchJabatan =
+        !filterJabatan || d.jabatan_fungsional === filterJabatan;
       return matchSearch && matchJabatan;
     });
   }, [dosen, search, filterJabatan]);

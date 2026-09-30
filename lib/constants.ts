@@ -63,18 +63,70 @@ export interface Pegawai {
   id: number;
   nip: string;
   nama_lengkap: string;
+  gelar_depan?: string;
+  gelar_belakang?: string;
   no_karpeg?: string;
-  tempat_lahir: string;
-  tanggal_lahir: string;
-  jenis_kelamin: "L" | "P";
-  pangkat_golongan: string;
-  tmt_pangkat: string;
-  jabatan_fungsional: JabatanFungsional;
-  tmt_jabatan: string;
-  unit_kerja: string;
+  tempat_lahir?: string;
+  tanggal_lahir?: string;
+  jenis_kelamin?: string;
+  pangkat_golongan?: string;
+  tmt_pangkat?: string;
+  jabatan_fungsional?: string;
+  tmt_jabatan?: string;
+  unit_kerja?: string;
+  subunit_kerja?: string;
+  homebase?: string;
+  status?: string;
+  status_aktif?: string;
+  substatus?: string;
+  jenis?: string;
+  gol?: string;
+  nama_golongan?: string;
+  nidn?: string;
+  nip_lama?: string;
+  nik?: string;
+  no_hp?: string;
+  email?: string;
+  alamat?: string;
+  npwp?: string;
+  agama?: string;
+  marital?: string;
 }
 
 export type PegawaiInput = Omit<Pegawai, "id">;
+
+export const SIHURA_COLUMN_MAP: Record<string, keyof PegawaiInput> = {
+  NIP: "nip",
+  NAMA: "nama_lengkap",
+  GELARDEP: "gelar_depan",
+  GELARBEL: "gelar_belakang",
+  JENKEL: "jenis_kelamin",
+  "TEMPAT LAHIR": "tempat_lahir",
+  "TGL LAHIR": "tanggal_lahir",
+  STATUS: "status",
+  SUBSTATUS: "substatus",
+  JENIS: "jenis",
+  GOL: "gol",
+  TMTGOL: "tmt_pangkat",
+  "FUNGSIONAL DOSEN": "jabatan_fungsional",
+  TMTFUNGSIONAL: "tmt_jabatan",
+  "UNIT KERJA": "unit_kerja",
+  SUBUNITKERJA: "subunit_kerja",
+  HOMEBASE: "homebase",
+  NIDN: "nidn",
+  "NIP LAMA": "nip_lama",
+  KARPEG: "no_karpeg",
+  ALAMAT: "alamat",
+  NPWP: "npwp",
+  "NO HP": "no_hp",
+  EMAIL1: "email",
+  "UNIT OPERASIONAL": "unit_kerja",
+  STATUSAKTIF: "status_aktif",
+  NIK: "nik",
+  AGAMA: "agama",
+  MARITAL: "marital",
+  NAMAGOLONGAN: "nama_golongan",
+};
 
 export interface Pejabat {
   id: number;

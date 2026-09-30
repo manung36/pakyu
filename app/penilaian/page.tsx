@@ -40,12 +40,21 @@ import {
   Pegawai,
   Penilaian,
   PenilaianInput,
+  JabatanFungsional,
   JABATAN_LIST,
   PREDIKAT_LIST,
 } from "@/lib/constants";
 import { Calculator as AKCalculator } from "@/lib/calculator";
 import { formatDisplay } from "@/lib/utils";
 import { toast } from "sonner";
+
+function getValidJabatan(
+  jabatan: string | undefined
+): JabatanFungsional | undefined {
+  return JABATAN_LIST.includes(jabatan as JabatanFungsional)
+    ? (jabatan as JabatanFungsional)
+    : undefined;
+}
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function PenilaianPage() {
@@ -61,7 +70,7 @@ export default function PenilaianPage() {
     predikat: "Baik",
   });
   const [calc, setCalc] = useState({
-    jabatan: "Asisten Ahli" as Pegawai["jabatan_fungsional"],
+    jabatan: "Asisten Ahli" as JabatanFungsional,
     predikat: "Baik" as PenilaianInput["predikat"],
     bulan: 12,
   });
@@ -93,11 +102,9 @@ export default function PenilaianPage() {
     if (!form.pegawai_id || !form.predikat || !form.jumlah_bulan) return 0;
     const d = dosenMap[form.pegawai_id];
     if (!d) return 0;
-    return AKCalculator.hitungAK(
-      d.jabatan_fungsional,
-      form.predikat,
-      form.jumlah_bulan
-    );
+    const jabatan = getValidJabatan(d.jabatan_fungsional);
+    if (!jabatan) return 0;
+    return AKCalculator.hitungAK(jabatan, form.predikat, form.jumlah_bulan);
   }, [form.pegawai_id, form.predikat, form.jumlah_bulan, dosenMap]);
 
   const calcResult = useMemo(() => {
@@ -114,9 +121,14 @@ export default function PenilaianPage() {
       toast.error("Dosen tidak ditemukan");
       return;
     }
+    const jabatan = getValidJabatan(d.jabatan_fungsional);
+    if (!jabatan) {
+      toast.error("Jabatan fungsional dosen tidak valid untuk perhitungan AK");
+      return;
+    }
     const bulan = Number(form.jumlah_bulan) || 12;
     const predikat = form.predikat || "Baik";
-    const ak = AKCalculator.hitungAK(d.jabatan_fungsional, predikat, bulan);
+    const ak = AKCalculator.hitungAK(jabatan, predikat, bulan);
 
     const data: PenilaianInput = {
       pegawai_id: form.pegawai_id,
@@ -125,7 +137,7 @@ export default function PenilaianPage() {
       jumlah_bulan: bulan,
       predikat,
       persentase: AKCalculator.getPersentaseDisplay(predikat),
-      koefisien: AKCalculator.getKoefisien(d.jabatan_fungsional),
+      koefisien: AKCalculator.getKoefisien(jabatan),
       angka_kredit_didapat: ak,
     };
 
@@ -204,7 +216,7 @@ export default function PenilaianPage() {
               <Select
                 value={calc.jabatan}
                 onValueChange={(v) =>
-                  setCalc({ ...calc, jabatan: v as Pegawai["jabatan_fungsional"] })
+                  setCalc({ ...calc, jabatan: v as JabatanFungsional })
                 }
               >
                 <SelectTrigger>

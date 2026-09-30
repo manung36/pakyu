@@ -1,19 +1,43 @@
 -- Schema PostgreSQL untuk PAK Konversi Dosen
 -- Jalankan di Neon SQL Editor atau via psql
 
+DROP TABLE IF EXISTS pak_penetapan CASCADE;
+DROP TABLE IF EXISTS penilaian_konversi CASCADE;
+DROP TABLE IF EXISTS pejabat_penilai CASCADE;
+DROP TABLE IF EXISTS pegawai CASCADE;
+
 CREATE TABLE IF NOT EXISTS pegawai (
   id SERIAL PRIMARY KEY,
   nip VARCHAR(18) NOT NULL UNIQUE,
   nama_lengkap VARCHAR(255) NOT NULL,
+  gelar_depan VARCHAR(100),
+  gelar_belakang VARCHAR(100),
   no_karpeg VARCHAR(50),
-  tempat_lahir VARCHAR(100) NOT NULL,
-  tanggal_lahir DATE NOT NULL,
-  jenis_kelamin CHAR(1) NOT NULL CHECK (jenis_kelamin IN ('L', 'P')),
-  pangkat_golongan VARCHAR(100) NOT NULL,
-  tmt_pangkat DATE NOT NULL,
-  jabatan_fungsional VARCHAR(50) NOT NULL CHECK (jabatan_fungsional IN ('Asisten Ahli', 'Lektor', 'Lektor Kepala', 'Profesor')),
-  tmt_jabatan DATE NOT NULL,
-  unit_kerja VARCHAR(255) NOT NULL,
+  tempat_lahir VARCHAR(100),
+  tanggal_lahir DATE,
+  jenis_kelamin VARCHAR(20),
+  pangkat_golongan VARCHAR(100),
+  tmt_pangkat DATE,
+  jabatan_fungsional VARCHAR(100),
+  tmt_jabatan DATE,
+  unit_kerja VARCHAR(255),
+  subunit_kerja VARCHAR(255),
+  homebase VARCHAR(255),
+  status VARCHAR(50),
+  status_aktif VARCHAR(100),
+  substatus VARCHAR(100),
+  jenis VARCHAR(50),
+  gol VARCHAR(50),
+  nama_golongan VARCHAR(100),
+  nidn VARCHAR(50),
+  nip_lama VARCHAR(50),
+  nik VARCHAR(50),
+  no_hp VARCHAR(50),
+  email VARCHAR(255),
+  alamat TEXT,
+  npwp VARCHAR(50),
+  agama VARCHAR(50),
+  marital VARCHAR(50),
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -21,6 +45,7 @@ CREATE TABLE IF NOT EXISTS pegawai (
 CREATE INDEX IF NOT EXISTS idx_pegawai_nama ON pegawai (nama_lengkap);
 CREATE INDEX IF NOT EXISTS idx_pegawai_jabatan ON pegawai (jabatan_fungsional);
 CREATE INDEX IF NOT EXISTS idx_pegawai_unit ON pegawai (unit_kerja);
+CREATE INDEX IF NOT EXISTS idx_pegawai_status_aktif ON pegawai (status_aktif);
 
 CREATE TABLE IF NOT EXISTS pejabat_penilai (
   id SERIAL PRIMARY KEY,

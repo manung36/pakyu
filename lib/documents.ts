@@ -2,7 +2,13 @@
 
 import { Pegawai, Penilaian } from "@/lib/constants";
 import { Calculator } from "@/lib/calculator";
-import { escapeHtml, formatDateID, formatAKComma, formatAK } from "@/lib/utils";
+import {
+  escapeHtml,
+  formatDateID,
+  formatAKComma,
+  formatAK,
+  getValidJabatan,
+} from "@/lib/utils";
 
 export interface PejabatData {
   nama_pejabat: string;
@@ -136,17 +142,16 @@ export function generateDokumen1(params: Dokumen1Params): string {
     params;
   const e = escapeHtml;
 
-  const koefisien = Calculator.getKoefisien(pegawai.jabatan_fungsional);
+  const jabatan = getValidJabatan(pegawai.jabatan_fungsional);
+  const koefisien = jabatan ? Calculator.getKoefisien(jabatan) : 0;
   const persentaseDisplay = Calculator.getPersentaseDisplay(penilaian.predikat);
   const ak =
     Number(penilaian.angka_kredit_didapat) ||
-    Calculator.hitungAK(
-      pegawai.jabatan_fungsional,
-      penilaian.predikat,
-      penilaian.jumlah_bulan
-    );
+    (jabatan
+      ? Calculator.hitungAK(jabatan, penilaian.predikat, penilaian.jumlah_bulan)
+      : 0);
 
-  let jabatanDisplay: string = pegawai.jabatan_fungsional;
+  let jabatanDisplay: string = pegawai.jabatan_fungsional || "-";
   if (jabatanDisplay.toLowerCase().includes("asisten ahli")) {
     jabatanDisplay = "AA";
   }
@@ -318,7 +323,11 @@ export function generateDokumen2(params: Dokumen2Params): string {
         <td>${e(p.periode_bulan || `${p.jumlah_bulan} Bulan`)}</td>
         <td>${e(p.predikat)}</td>
         <td>${Calculator.getPersentaseDisplay(p.predikat)}</td>
-        <td>${Calculator.getKoefisien(pegawai.jabatan_fungsional)}</td>
+        <td>${
+          getValidJabatan(pegawai.jabatan_fungsional)
+            ? Calculator.getKoefisien(getValidJabatan(pegawai.jabatan_fungsional)!)
+            : 0
+        }</td>
         <td>${formatAK(ak)}</td>
       </tr>
     `;

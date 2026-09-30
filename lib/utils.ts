@@ -258,6 +258,40 @@ export function jenisKelaminLabel(value: string): string {
   return value === "L" ? "Laki-laki" : value === "P" ? "Perempuan" : "-";
 }
 
+import { JabatanFungsional, JABATAN_LIST } from "@/lib/constants";
+
+export function getValidJabatan(
+  jabatan: string | undefined
+): JabatanFungsional | undefined {
+  return JABATAN_LIST.includes(jabatan as JabatanFungsional)
+    ? (jabatan as JabatanFungsional)
+    : undefined;
+}
+
+export function normalizeJenisKelamin(value: string): "L" | "P" | undefined {
+  const v = String(value || "").trim().toUpperCase();
+  if (v === "L" || v === "LAKI-LAKI" || v === "LAKI") return "L";
+  if (v === "P" || v === "PEREMPUAN") return "P";
+  return undefined;
+}
+
+export function convertDateIDToISO(dateStr: string): string | undefined {
+  if (!dateStr) return undefined;
+  const cleaned = String(dateStr).trim();
+  // Try DD/MM/YYYY
+  const match = cleaned.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (match) {
+    const [, day, month, year] = match;
+    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+  }
+  // Fallback: try ISO / standard date parse
+  const d = new Date(cleaned);
+  if (!isNaN(d.getTime())) {
+    return formatDateISO(d);
+  }
+  return undefined;
+}
+
 export const BULAN = [
   "Januari",
   "Februari",
