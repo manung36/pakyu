@@ -47,4 +47,10 @@ next-env.d.ts
 
 # cursor
 .cursor/*
-  
+
+# neon
+.neon
+
+# uploaded data files
+*.xls
+*.xlsx
