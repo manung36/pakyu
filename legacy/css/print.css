@@ -1,0 +1,441 @@
+/* ============================================
+   PAK Konversi Dosen — Print Styles (A4/F4)
+   ============================================ */
+
+@media print {
+  /* Reset everything for print */
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Page setup */
+  @page {
+    size: A4;
+    margin: 1.5cm 2cm;
+  }
+
+  html, body {
+    font-family: 'Times New Roman', serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+    width: 100%;
+  }
+
+  /* Hide app chrome */
+  .sidebar,
+  .mobile-toggle,
+  .sidebar-overlay,
+  .toast-container,
+  .modal-overlay,
+  .page-header,
+  .btn,
+  .nav-item,
+  .search-bar,
+  .no-print {
+    display: none !important;
+  }
+
+  .main-content {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Show print container */
+  .print-container {
+    display: block !important;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Document Header / Kop Surat */
+  .doc-kop {
+    text-align: center;
+    border-bottom: 3px double #000;
+    padding-bottom: 10pt;
+    margin-bottom: 16pt;
+  }
+
+  .doc-kop-ministry {
+    font-size: 11pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5pt;
+  }
+
+  .doc-kop-university {
+    font-size: 14pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1pt;
+  }
+
+  .doc-kop-address {
+    font-size: 9pt;
+    margin-top: 2pt;
+  }
+
+  /* Document Title */
+  .doc-title {
+    text-align: center;
+    font-size: 13pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 20pt 0 16pt;
+    letter-spacing: 0.5pt;
+    text-decoration: underline;
+  }
+
+  .doc-subtitle {
+    text-align: center;
+    font-size: 11pt;
+    margin-bottom: 16pt;
+  }
+
+  .doc-nomor {
+    text-align: center;
+    font-size: 11pt;
+    margin-bottom: 20pt;
+  }
+
+  /* Biodata Table */
+  .doc-biodata {
+    width: 100%;
+    margin-bottom: 16pt;
+    border-collapse: collapse;
+  }
+
+  .doc-biodata td {
+    padding: 2pt 4pt;
+    font-size: 11pt;
+    vertical-align: top;
+    border: none;
+  }
+
+  .doc-biodata .label-col {
+    width: 35%;
+    font-weight: normal;
+  }
+
+  .doc-biodata .sep-col {
+    width: 3%;
+    text-align: center;
+  }
+
+  .doc-biodata .value-col {
+    width: 62%;
+  }
+
+  /* Data Tables */
+  .doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12pt 0;
+    font-size: 10pt;
+  }
+
+  .doc-table th,
+  .doc-table td {
+    border: 1px solid #000 !important;
+    padding: 4pt 6pt;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .doc-table th {
+    font-weight: bold;
+    background-color: #f0f0f0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .doc-table td.text-left {
+    text-align: left;
+  }
+
+  .doc-table td.text-right {
+    text-align: right;
+  }
+
+  .doc-table .total-row td {
+    font-weight: bold;
+    border-top: 2px solid #000 !important;
+  }
+
+  /* Evaluation Box */
+  .doc-eval-box {
+    border: 2px solid #000;
+    padding: 10pt;
+    margin: 16pt 0;
+  }
+
+  .doc-eval-title {
+    font-weight: bold;
+    font-size: 11pt;
+    text-align: center;
+    margin-bottom: 8pt;
+    text-transform: uppercase;
+  }
+
+  .doc-eval-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10pt;
+  }
+
+  .doc-eval-table td {
+    padding: 3pt 6pt;
+    vertical-align: top;
+  }
+
+  /* Result Box */
+  .doc-result {
+    border: 2px solid #000;
+    padding: 12pt 16pt;
+    margin: 20pt 0;
+    text-align: center;
+    font-weight: bold;
+    font-size: 11pt;
+    text-transform: uppercase;
+  }
+
+  .doc-result-dapat {
+    /* Green-ish for print */
+  }
+
+  .doc-result-tidak {
+    /* Red-ish for print */
+  }
+
+  /* Signature Block */
+  .doc-signature {
+    margin-top: 30pt;
+    width: 100%;
+  }
+
+  .doc-signature-block {
+    float: right;
+    width: 45%;
+    text-align: center;
+  }
+
+  .doc-signature-place-date {
+    font-size: 11pt;
+    margin-bottom: 4pt;
+  }
+
+  .doc-signature-role {
+    font-size: 11pt;
+    font-weight: bold;
+    margin-bottom: 60pt;
+  }
+
+  .doc-signature-name {
+    font-size: 11pt;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .doc-signature-nip {
+    font-size: 10pt;
+    margin-top: 2pt;
+  }
+
+  .doc-signature::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
+  /* Page Breaks */
+  .page-break-before {
+    page-break-before: always;
+  }
+
+  .page-break-after {
+    page-break-after: always;
+  }
+
+  .no-break {
+    page-break-inside: avoid;
+  }
+
+  /* Prevent table rows from splitting */
+  .doc-table tr {
+    page-break-inside: avoid;
+  }
+
+  /* Notes */
+  .doc-notes {
+    font-size: 9pt;
+    font-style: italic;
+    margin-top: 12pt;
+  }
+
+  .doc-notes p {
+    margin-bottom: 4pt;
+  }
+}
+
+/* ---- Print Preview (on-screen) ---- */
+.print-preview-wrapper {
+  background: var(--color-bg-primary);
+  padding: var(--space-8) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.print-preview-actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.print-preview-page {
+  background: #fff;
+  color: #000;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 1.5cm 2cm;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  border-radius: 4px;
+  font-family: 'Times New Roman', serif;
+  font-size: 12pt;
+  line-height: 1.5;
+  position: relative;
+}
+
+.print-preview-page * {
+  color: #000;
+}
+
+/* Preview-specific table styles */
+.print-preview-page .doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12pt 0;
+  font-size: 10pt;
+}
+
+.print-preview-page .doc-table th,
+.print-preview-page .doc-table td {
+  border: 1px solid #000;
+  padding: 4pt 6pt;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.print-preview-page .doc-table th {
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
+
+.print-preview-page .doc-kop {
+  text-align: center;
+  border-bottom: 3px double #000;
+  padding-bottom: 10pt;
+  margin-bottom: 16pt;
+}
+
+.print-preview-page .doc-title {
+  text-align: center;
+  font-size: 13pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 20pt 0 16pt;
+  text-decoration: underline;
+}
+
+.print-preview-page .doc-subtitle {
+  text-align: center;
+  font-size: 11pt;
+  margin-bottom: 16pt;
+}
+
+.print-preview-page .doc-nomor {
+  text-align: center;
+  font-size: 11pt;
+  margin-bottom: 20pt;
+}
+
+.print-preview-page .doc-biodata {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16pt;
+}
+
+.print-preview-page .doc-biodata td {
+  padding: 2pt 4pt;
+  font-size: 11pt;
+  vertical-align: top;
+  border: none;
+}
+
+.print-preview-page .doc-eval-box {
+  border: 2px solid #000;
+  padding: 10pt;
+  margin: 16pt 0;
+}
+
+.print-preview-page .doc-eval-title {
+  font-weight: bold;
+  font-size: 11pt;
+  text-align: center;
+  margin-bottom: 8pt;
+  text-transform: uppercase;
+}
+
+.print-preview-page .doc-result {
+  border: 2px solid #000;
+  padding: 12pt 16pt;
+  margin: 20pt 0;
+  text-align: center;
+  font-weight: bold;
+  font-size: 11pt;
+  text-transform: uppercase;
+}
+
+.print-preview-page .doc-signature {
+  margin-top: 30pt;
+  width: 100%;
+  overflow: hidden;
+}
+
+.print-preview-page .doc-signature-block {
+  float: right;
+  width: 45%;
+  text-align: center;
+}
+
+.print-preview-page .doc-signature-role {
+  font-weight: bold;
+  margin-bottom: 60pt;
+}
+
+.print-preview-page .doc-signature-name {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.print-preview-page .total-row td {
+  font-weight: bold;
+  border-top: 2px solid #000;
+}
+
+@media (max-width: 900px) {
+  .print-preview-page {
+    width: 100%;
+    min-height: auto;
+    padding: 1cm;
+  }
+}

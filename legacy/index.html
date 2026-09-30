@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplikasi PAK Konversi Dosen — PermenPANRB No. 1 Tahun 2023</title>
+  <meta name="description" content="Aplikasi Pembuat Dokumen PAK Konversi Dosen dan Perhitungan Angka Kredit (AK) mengikut PermenPANRB No. 1 Tahun 2023.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/print.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Mobile Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">PAK</div>
+        <div class="sidebar-brand">
+          <span class="sidebar-brand-title">PAK Konversi</span>
+          <span class="sidebar-brand-subtitle">Pembuat Dokumen Dosen</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">Menu Utama</div>
+        <div class="nav-item active" data-page="dashboard">
+          <span class="nav-item-icon">📊</span>
+          <span>Dashboard</span>
+        </div>
+        <div class="nav-item" data-page="dosen">
+          <span class="nav-item-icon">👤</span>
+          <span>Data Dosen</span>
+        </div>
+        <div class="nav-item" data-page="import">
+          <span class="nav-item-icon">📥</span>
+          <span>Import Excel</span>
+        </div>
+
+        <div class="nav-section-label">Penilaian & Dokumen</div>
+        <div class="nav-item" data-page="penilaian">
+          <span class="nav-item-icon">🧮</span>
+          <span>Penilaian AK</span>
+        </div>
+        <div class="nav-item" data-page="dokumen">
+          <span class="nav-item-icon">📄</span>
+          <span>Buat Dokumen</span>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-footer-info">
+          PAK Konversi Dosen v1.0<br>
+          <span class="text-muted" style="font-size: 0.75rem;">PermenPANRB No. 1 / 2023</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <div id="mobile-toggle" class="btn btn-ghost btn-sm" style="margin-bottom: var(--space-4); display: none;">
+        ☰ Navigasi Menu
+      </div>
+      <div id="main-content-area"></div>
+    </main>
+  </div>
+
+  <!-- Third-party Libraries -->
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+
+  <!-- Application Modules -->
+  <script src="js/utils.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/import.js"></script>
+  <script src="js/documents.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
