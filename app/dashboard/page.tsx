@@ -14,7 +14,12 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { DB } from "@/lib/db";
+import {
+  countPegawaiAction,
+  countPenilaianAction,
+  countPenetapanAction,
+  getAllPegawaiAction,
+} from "@/lib/actions";
 import { Pegawai } from "@/lib/constants";
 
 const jabatanOrder = ["Asisten Ahli", "Lektor", "Lektor Kepala", "Profesor"];
@@ -43,10 +48,10 @@ export default function DashboardPage() {
       try {
         const [totalDosen, totalPenilaian, totalPenetapan, allDosen] =
           await Promise.all([
-            DB.countPegawai(),
-            DB.countPenilaian(),
-            DB.countPenetapan(),
-            DB.getAllPegawai(),
+            countPegawaiAction(),
+            countPenilaianAction(),
+            countPenetapanAction(),
+            getAllPegawaiAction(),
           ]);
 
         const counts: Record<string, number> = {};

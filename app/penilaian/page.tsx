@@ -30,7 +30,12 @@ import {
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { DB } from "@/lib/db";
+import {
+  getAllPegawaiAction,
+  getAllPenilaianAction,
+  addPenilaianAction,
+  deletePenilaianAction,
+} from "@/lib/actions";
 import {
   Pegawai,
   Penilaian,
@@ -64,8 +69,8 @@ export default function PenilaianPage() {
   async function loadData() {
     try {
       const [d, p] = await Promise.all([
-        DB.getAllPegawai(),
-        DB.getAllPenilaian(),
+        getAllPegawaiAction(),
+        getAllPenilaianAction(),
       ]);
       setDosen(d);
       setPenilaian(p);
@@ -125,7 +130,7 @@ export default function PenilaianPage() {
     };
 
     try {
-      await DB.addPenilaian(data);
+      await addPenilaianAction(data);
       toast.success("Penilaian berhasil disimpan");
       setOpen(false);
       setForm({
@@ -144,7 +149,7 @@ export default function PenilaianPage() {
   async function handleDelete(id: number) {
     if (!confirm("Hapus rekaman penilaian ini?")) return;
     try {
-      await DB.deletePenilaian(id);
+      await deletePenilaianAction(id);
       toast.success("Rekaman dihapus");
       loadData();
     } catch (err) {

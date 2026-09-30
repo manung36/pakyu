@@ -30,7 +30,12 @@ import {
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { DB } from "@/lib/db";
+import {
+  getAllPegawaiAction,
+  addPegawaiAction,
+  updatePegawaiAction,
+  deletePegawaiAction,
+} from "@/lib/actions";
 import { Pegawai, JABATAN_LIST, PegawaiInput } from "@/lib/constants";
 import { validateNIP, jenisKelaminLabel } from "@/lib/utils";
 import { toast } from "sonner";
@@ -61,7 +66,7 @@ export default function DosenPage() {
 
   async function loadDosen() {
     try {
-      const data = await DB.getAllPegawai();
+      const data = await getAllPegawaiAction();
       setDosen(data);
     } finally {
       setLoading(false);
@@ -118,10 +123,10 @@ export default function DosenPage() {
 
     try {
       if (editing) {
-        await DB.updatePegawai({ ...editing, ...form });
+        await updatePegawaiAction({ ...editing, ...form });
         toast.success("Data dosen berhasil diperbarui");
       } else {
-        await DB.addPegawai(form);
+        await addPegawaiAction(form);
         toast.success("Dosen berhasil ditambahkan");
       }
       setOpen(false);
@@ -134,7 +139,7 @@ export default function DosenPage() {
   async function handleDelete(d: Pegawai) {
     if (!confirm(`Hapus data dosen "${d.nama_lengkap}"?`)) return;
     try {
-      await DB.deletePegawai(d.id);
+      await deletePegawaiAction(d.id);
       toast.success("Data dosen berhasil dihapus");
       loadDosen();
     } catch (err) {

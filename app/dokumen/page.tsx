@@ -21,7 +21,10 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { DB } from "@/lib/db";
+import {
+  getAllPegawaiAction,
+  getAllPenilaianAction,
+} from "@/lib/actions";
 import { Pegawai, Penilaian } from "@/lib/constants";
 import {
   generateDokumen1,
@@ -86,8 +89,8 @@ export default function DokumenPage() {
   async function loadData() {
     try {
       const [d, p] = await Promise.all([
-        DB.getAllPegawai(),
-        DB.getAllPenilaian(),
+        getAllPegawaiAction(),
+        getAllPenilaianAction(),
       ]);
       setDosen(d);
       setPenilaian(p);

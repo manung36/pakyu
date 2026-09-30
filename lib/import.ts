@@ -2,7 +2,11 @@
 
 import * as XLSX from "xlsx";
 import { COLUMN_MAP, Pegawai, PegawaiInput } from "@/lib/constants";
-import { DB } from "@/lib/db";
+import {
+  getPegawaiByNIPAction,
+  addPegawaiAction,
+  updatePegawaiAction,
+} from "@/lib/actions";
 import {
   excelDateToJS,
   formatDateISO,
@@ -141,7 +145,7 @@ export async function checkConflicts(validRows: MappedRow[]) {
     const { _rowIndex, ...data } = row as PegawaiInput & {
       _rowIndex: number;
     };
-    const existing = await DB.getPegawaiByNIP(data.nip);
+    const existing = await getPegawaiByNIPAction(data.nip);
     if (existing) {
       conflictRows.push({
         newData: { ...data, _rowIndex },
@@ -168,7 +172,7 @@ export async function executeImport(
   for (const row of newRows) {
     try {
       const { _rowIndex, ...data } = row;
-      await DB.addPegawai(data);
+      await addPegawaiAction(data);
       addedCount++;
     } catch (err) {
       errors.push({
@@ -183,7 +187,7 @@ export async function executeImport(
       try {
         const { _rowIndex, ...newData } = conflict.newData;
         const updatedData = { ...conflict.existingData, ...newData };
-        await DB.updatePegawai(updatedData);
+        await updatePegawaiAction(updatedData);
         updatedCount++;
       } catch (err) {
         errors.push({
